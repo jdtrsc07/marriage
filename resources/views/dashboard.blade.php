@@ -102,7 +102,7 @@
                                         <select id="g_province" class="form-select pl-1 pt-0 pb-0 pr-0">
                                             <option value="" hidden>--FOR PHILIPPINES--</option>
                                         </select>
-                                        <span class="p-0 text-xs">Foreign countries do not need to choose a
+                                        <span class="p-0 bg-warning text-xs">Foreign countries do not need to choose a
                                             province.</span>
                                     </div>
                                 </div>
@@ -696,32 +696,47 @@
                                     </div>
                                     <div class="col-lg-4">
                                         <small for="" class="form-label font-mono">Age:</small>
-                                        <input type="text" id="b_age" class="form-control h-50" disabled>
+                                        <input type="text" id="b_age" class="form-control h-50" readonly>
                                     </div>
                                 </div>
                                 <hr>
                                 {{-- 3 --}}
+
+                                <div class="row pt-1">
+                                    <div class="col-lg-4"> <small for=""
+                                            class="form-label font-mono">Country:</small>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <select id="b_country" class="form-select pl-1 pt-0 pb-0 pr-0">
+                                            <option value="PHILIPPINES" hidden>PHILIPPINES</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row pt-1">
+                                    <div class="col-lg-4"> <small for=""
+                                            class="form-label font-mono">Province:</small>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <select id="b_province" class="form-select pl-1 pt-0 pb-0 pr-0">
+                                            <option value="" hidden>--FOR PHILIPPINES--</option>
+                                        </select>
+                                        <span class="p-0 bg-warning text-xs">Foreign countries do not need to choose a
+                                            province.</span>
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="col-lg-4"> <small for=""
                                             class="form-label font-mono">Municipality:</small>
                                     </div>
-                                    <div class="col-lg-8"> <input type="text" id="b_municipality"
-                                            class="form-control h-75"></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-4"> <small for=""
-                                            class="form-label font-mono">Province:</small>
+                                    <div class="col-lg-8">
+                                        <select id="b_municipality" class="form-select pl-1 pt-0 pb-0 pr-0">
+                                            <option value="" hidden>--SELECT CITY--</option>
+                                        </select>
+
                                     </div>
-                                    <div class="col-lg-8"> <input type="text" id="b_province"
-                                            class="form-control h-75"></div>
+
                                 </div>
-                                <div class="row">
-                                    <div class="col-lg-4"> <small for=""
-                                            class="form-label font-mono">Country:</small>
-                                    </div>
-                                    <div class="col-lg-8"> <input type="text" id="b_country"
-                                            class="form-control h-75"></div>
-                                </div>
+
                                 <hr>
                                 {{-- 4 --}}
                                 <div class="row">

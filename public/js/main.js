@@ -1,371 +1,9 @@
 // $(document).ready(function () {
 // birthdate
 
-$("#g_dateofbirth").focusout(function () {
-    let inputDate = $("#g_dateofbirth").val();
-    let currentDate = new Date();
-    let eighteenYearsAgo = new Date();
-    let maxAge = new Date();
-
-    eighteenYearsAgo.setFullYear(currentDate.getFullYear() - 18);
-    maxAge.setFullYear(currentDate.getFullYear() - 70);
-
-    let parsedInputDate = new Date(inputDate)
-
-    if (!inputDate) {
-        return;
-    }
-    if (parsedInputDate > eighteenYearsAgo) {
-        alert("Age must be 18 years old and above");
-        $("#g_dateofbirth").val("");
-    } else if (parsedInputDate < maxAge) {
-        alert("Invalid year it exceeds the expected input");
-        $("#g_dateofbirth").val("");
-    } else {
-        let age = currentDate.getFullYear() - parsedInputDate.getFullYear();
-        if (currentDate < new Date(currentDate.getFullYear(), parsedInputDate.getMonth(), parsedInputDate.getDate())) {
-            age--;
-
-        }
-
-        $('#g_age').val(age);
-    }
-});
 
 
 
-// DROPDOWN
-let g_country = $('#g_country');
-let g_province = $('#g_province');
-let g_city = $('#g_municipality');
-
-
-$.get('/json/countries.json', function (data) {
-
-    $.each(data, function (countryName, cities) {
-        g_country.append($('<option />').val(countryName).text(countryName.toUpperCase()));
-    });
-});
-
-g_country.on('change', function () {
-    if (g_country.val() == 'Philippines') {
-        g_city.empty();
-        g_province.prop('disabled', false);
-    } else {
-        g_province.prop('disabled', true);
-        g_city.empty();
-        $.get('/json/countries.json', function (data) {
-
-            let g_countryval = $('#g_country').val();
-            g_city.empty();
-            g_city.append($('<option />').val('').text('--SELECT MUNICIPALITY--').prop('hidden', true));
-
-            $.each(data[g_countryval], function (countryName, cities) {
-                g_city.append($('<option />').val(cities).text(cities.toUpperCase()));
-                console.log(cities);
-            });
-        });
-    }
-})
-
-
-
-
-$.get('/json/refprovince.json', function (data) {
-    let dropdown = $('#g_province');
-    let code;
-    let city_dropdown = $('#g_municipality')
-    $.each(data.RECORDS, function (index, region) {
-        dropdown.append($('<option />').val(region.provDesc).text(region.provDesc));
-    });
-    // 1
-    $('#g_province').on('change', function () {
-        city_dropdown.empty();
-        city_dropdown.append($('<option />').val('').text('--SELECT MUNICIPALITY--').prop('hidden', true));
-
-        switch (dropdown.val()) {
-            case "ILOCOS NORTE":
-                code = "0128";
-                break;
-            case "ILOCOS SUR":
-                code = "0129";
-                break;
-            case "LA UNION":
-                code = "0133";
-                break;
-            case "PANGASINAN":
-                code = "0155";
-                break;
-            case "BATANES":
-                code = "0209";
-                break;
-            case "CAGAYAN":
-                code = "0215";
-                break;
-            case "ISABELA":
-                code = "0231";
-                break;
-            case "NUEVA VIZCAYA":
-                code = "0250";
-                break;
-            case "QUIRINO":
-                code = "0257";
-                break;
-            case "BATAAN":
-                code = "0308";
-                break;
-            case "BULACAN":
-                code = "0314";
-                break;
-            case "NUEVA ECIJA":
-                code = "0349";
-                break;
-            case "PAMPANGA":
-                code = "0354";
-                break;
-            case "TARLAC":
-                code = "0369";
-                break;
-            case "ZAMBALES":
-                code = "0371";
-                break;
-            case "AURORA":
-                code = "0377";
-                break;
-            case "BATANGAS":
-                code = "0410";
-                break;
-            case "CAVITE":
-                code = "0421";
-                break;
-            case "LAGUNA":
-                code = "0434";
-                break;
-            case "QUEZON":
-                code = "0456";
-                break;
-            case "RIZAL":
-                code = "0458";
-                break;
-            case "MARINDUQUE":
-                code = "1740";
-                break;
-            case "OCCIDENTAL MINDORO":
-                code = "1751";
-                break;
-            case "ORIENTAL MINDORO":
-                code = "1752";
-                break;
-            case "PALAWAN":
-                code = "1753";
-                break;
-            case "ROMBLON":
-                code = "1759";
-                break;
-            case "ALBAY":
-                code = "0505";
-                break;
-            case "CAMARINES NORTE":
-                code = "0516";
-                break;
-            case "CAMARINES SUR":
-                code = "0517";
-                break;
-            case "CATANDUANES":
-                code = "0520";
-                break;
-            case "MASBATE":
-                code = "0541";
-                break;
-            case "SORSOGON":
-                code = "0562";
-                break;
-            case "AKLAN":
-                code = "0604";
-                break;
-            case "ANTIQUE":
-                code = "0606";
-                break;
-            case "CAPIZ":
-                code = "0619";
-                break;
-            case "ILOILO":
-                code = "0630";
-                break;
-            case "NEGROS OCCIDENTAL":
-                code = "0645";
-                break;
-            case "GUIMARAS":
-                code = "0679";
-                break;
-            case "BOHOL":
-                code = "0712";
-                break;
-            case "CEBU":
-                code = "0722";
-                break;
-            case "NEGROS ORIENTAL":
-                code = "0746";
-                break;
-            case "SIQUIJOR":
-                code = "0761";
-                break;
-            case "EASTERN SAMAR":
-                code = "0826";
-                break;
-            case "LEYTE":
-                code = "0837";
-                break;
-            case "NORTHERN SAMAR":
-                code = "0848";
-                break;
-            case "SAMAR (WESTERN SAMAR)":
-                code = "0860";
-                break;
-            case "SOUTHERN LEYTE":
-                code = "0864";
-                break;
-            case "BILIRAN":
-                code = "0878";
-                break;
-            case "ZAMBOANGA DEL NORTE":
-                code = "0972";
-                break;
-            case "ZAMBOANGA DEL SUR":
-                code = "0973";
-                break;
-            case "ZAMBOANGA SIBUGAY":
-                code = "0983";
-                break;
-            case "CITY OF ISABELA":
-                code = "0997";
-                break;
-            case "BUKIDNON":
-                code = "1013";
-                break;
-            case "CAMIGUIN":
-                code = "1018";
-                break;
-            case "LANAO DEL NORTE":
-                code = "1035";
-                break;
-            case "MISAMIS OCCIDENTAL":
-                code = "1042";
-                break;
-            case "MISAMIS ORIENTAL":
-                code = "1043";
-                break;
-            case "DAVAO DEL NORTE":
-                code = "1123";
-                break;
-            case "DAVAO DEL SUR":
-                code = "1124";
-                break;
-            case "DAVAO ORIENTAL":
-                code = "1125";
-                break;
-            case "COMPOSTELA VALLEY":
-                code = "1182";
-                break;
-            case "DAVAO OCCIDENTAL":
-                code = "1186";
-                break;
-            case "COTABATO (NORTH COTABATO)":
-                code = "1247";
-                break;
-            case "SOUTH COTABATO":
-                code = "1263";
-                break;
-            case "SULTAN KUDARAT":
-                code = "1265";
-                break;
-            case "SARANGANI":
-                code = "1280";
-                break;
-            case "COTABATO CITY":
-                code = "1298";
-                break;
-            case "NCR, CITY OF MANILA, FIRST DISTRICT":
-            case "CITY OF MANILA":
-                code = "1339";
-                break;
-            case "NCR, SECOND DISTRICT":
-                code = "1374";
-                break;
-            case "NCR, THIRD DISTRICT":
-                code = "1375";
-                break;
-            case "NCR, FOURTH DISTRICT":
-                code = "1376";
-                break;
-            case "ABRA":
-                code = "1401";
-                break;
-            case "BENGUET":
-                code = "1411";
-                break;
-            case "IFUGAO":
-                code = "1427";
-                break;
-            case "KALINGA":
-                code = "1432";
-                break;
-            case "MOUNTAIN PROVINCE":
-                code = "1444";
-                break;
-            case "APAYAO":
-                code = "1481";
-                break;
-            case "BASILAN":
-                code = "1507";
-                break;
-            case "LANAO DEL SUR":
-                code = "1536";
-                break;
-            case "MAGUINDANAO":
-                code = "1538";
-                break;
-            case "SULU":
-                code = "1566";
-                break;
-            case "TAWI-TAWI":
-                code = "1570";
-                break;
-            case "AGUSAN DEL NORTE":
-                code = "1602";
-                break;
-            case "AGUSAN DEL SUR":
-                code = "1603";
-                break;
-            case "SURIGAO DEL NORTE":
-                code = "1667";
-                break;
-            case "SURIGAO DEL SUR":
-                code = "1668";
-                break;
-            case "DINAGAT ISLANDS":
-                code = "1685";
-                break;
-            //continue here
-
-            default:
-            // code block
-        }
-        // if (dropdown.val() == "RIZAL") {
-        $.get('/json/refcitymun.json', function (data) {
-            let citiesInRizal = [];
-            $.each(data.RECORDS, function (index, city) {
-                if (city.provCode == code) {
-                    citiesInRizal.push(city.citymunDesc);
-                    city_dropdown.append($('<option />').val(city.citymunDesc).text(city.citymunDesc));
-                }
-            });
-
-
-        })
-
-    })
-})
 
 
 
@@ -375,6 +13,27 @@ $.get('/json/refprovince.json', function (data) {
 
 
 $(function () {
+
+    let bridebday = $("#b_dateofbirth");
+    let bAge = $("#b_age");
+    let groombday = $("#g_dateofbirth");
+    let gAge = $("#g_age");
+
+
+
+    birthdatevalidation(bridebday, bAge);
+    birthdatevalidation(groombday, gAge);
+
+
+    let g_country = $('#g_country');
+    let g_province = $('#g_province');
+    let g_city = $('#g_municipality');
+    let b_country = $('#b_country');
+    let b_province = $('#b_province');
+    let b_city = $('#b_municipality');
+
+    placesDropdowns(g_country, g_province, g_city);
+    placesDropdowns(b_country, b_province, b_city);
 
     // $('#g_province').prop('disabled', true);
     $(document).on('click', '#save-both', function (e) {
@@ -638,6 +297,382 @@ $(function () {
                 }
             }
         });
+    }
+
+    function birthdatevalidation(user, userAge) {
+
+        // $("#g_dateofbirth").focusout(function () {
+        user.focusout(function () {
+            let inputDate = user.val();
+            let currentDate = new Date();
+            let eighteenYearsAgo = new Date();
+            let maxAge = new Date();
+
+            eighteenYearsAgo.setFullYear(currentDate.getFullYear() - 18);
+            maxAge.setFullYear(currentDate.getFullYear() - 70);
+
+            let parsedInputDate = new Date(inputDate)
+
+            if (!inputDate) {
+                return;
+            }
+            if (parsedInputDate > eighteenYearsAgo) {
+                alert("Age must be 18 years old and above");
+                $("#g_dateofbirth").val("");
+            } else if (parsedInputDate < maxAge) {
+                alert("Invalid year it exceeds the expected input");
+                user.val("");
+            } else {
+                let age = currentDate.getFullYear() - parsedInputDate.getFullYear();
+                if (currentDate < new Date(currentDate.getFullYear(), parsedInputDate.getMonth(), parsedInputDate.getDate())) {
+                    age--;
+
+                }
+
+                userAge.val(age);
+            }
+        });
+    }
+
+
+    // DROPDOWN
+
+    function placesDropdowns(country, province, city) {
+
+
+        $.get('/json/countries.json', function (data) {
+
+            $.each(data, function (countryName, cities) {
+                country.append($('<option />').val(countryName).text(countryName.toUpperCase()));
+            });
+        });
+
+        country.on('change', function () {
+            if (country.val() == 'Philippines') {
+                city.empty();
+                province.prop('disabled', false);
+            } else {
+                province.prop('disabled', true);
+                city.empty();
+                $.get('/json/countries.json', function (data) {
+
+                    let countryval = country.val();
+                    let options = document.createDocumentFragment();
+                    city.empty();
+                    city.append($('<option />').val('').text('--SELECT MUNICIPALITY--').prop('hidden', true));
+
+                    $.each(data[countryval], function (countryName, cities) {
+                        city.append($('<option />').val(cities).text(cities.toUpperCase()));
+                        console.log(cities);
+                    });
+                });
+            }
+        })
+
+
+
+
+        $.get('/json/refprovince.json', function (data) {
+            // let dropdown = $('#g_province');
+            let code;
+
+            // let city_dropdown = $('#g_municipality')
+            $.each(data.RECORDS, function (index, region) {
+                province.append($('<option />').val(region.provDesc).text(region.provDesc));
+            });
+            // 1
+            province.on('change', function () {
+                city.empty();
+                city.append($('<option />').val('').text('--SELECT MUNICIPALITY--').prop('hidden', true));
+                // console.log(province.val());
+                switch (province.val()) {
+                    case "ILOCOS NORTE":
+                        code = "0128";
+                        // console.log(code);
+                        break;
+                    case "ILOCOS SUR":
+                        code = "0129";
+                        break;
+                    case "LA UNION":
+                        code = "0133";
+                        break;
+                    case "PANGASINAN":
+                        code = "0155";
+                        break;
+                    case "BATANES":
+                        code = "0209";
+                        break;
+                    case "CAGAYAN":
+                        code = "0215";
+                        break;
+                    case "ISABELA":
+                        code = "0231";
+                        break;
+                    case "NUEVA VIZCAYA":
+                        code = "0250";
+                        break;
+                    case "QUIRINO":
+                        code = "0257";
+                        break;
+                    case "BATAAN":
+                        code = "0308";
+                        break;
+                    case "BULACAN":
+                        code = "0314";
+                        break;
+                    case "NUEVA ECIJA":
+                        code = "0349";
+                        break;
+                    case "PAMPANGA":
+                        code = "0354";
+                        break;
+                    case "TARLAC":
+                        code = "0369";
+                        break;
+                    case "ZAMBALES":
+                        code = "0371";
+                        break;
+                    case "AURORA":
+                        code = "0377";
+                        break;
+                    case "BATANGAS":
+                        code = "0410";
+                        break;
+                    case "CAVITE":
+                        code = "0421";
+                        break;
+                    case "LAGUNA":
+                        code = "0434";
+                        break;
+                    case "QUEZON":
+                        code = "0456";
+                        break;
+                    case "RIZAL":
+                        code = "0458";
+                        break;
+                    case "MARINDUQUE":
+                        code = "1740";
+                        break;
+                    case "OCCIDENTAL MINDORO":
+                        code = "1751";
+                        break;
+                    case "ORIENTAL MINDORO":
+                        code = "1752";
+                        break;
+                    case "PALAWAN":
+                        code = "1753";
+                        break;
+                    case "ROMBLON":
+                        code = "1759";
+                        break;
+                    case "ALBAY":
+                        code = "0505";
+                        break;
+                    case "CAMARINES NORTE":
+                        code = "0516";
+                        break;
+                    case "CAMARINES SUR":
+                        code = "0517";
+                        break;
+                    case "CATANDUANES":
+                        code = "0520";
+                        break;
+                    case "MASBATE":
+                        code = "0541";
+                        break;
+                    case "SORSOGON":
+                        code = "0562";
+                        break;
+                    case "AKLAN":
+                        code = "0604";
+                        break;
+                    case "ANTIQUE":
+                        code = "0606";
+                        break;
+                    case "CAPIZ":
+                        code = "0619";
+                        break;
+                    case "ILOILO":
+                        code = "0630";
+                        break;
+                    case "NEGROS OCCIDENTAL":
+                        code = "0645";
+                        break;
+                    case "GUIMARAS":
+                        code = "0679";
+                        break;
+                    case "BOHOL":
+                        code = "0712";
+                        break;
+                    case "CEBU":
+                        code = "0722";
+                        break;
+                    case "NEGROS ORIENTAL":
+                        code = "0746";
+                        break;
+                    case "SIQUIJOR":
+                        code = "0761";
+                        break;
+                    case "EASTERN SAMAR":
+                        code = "0826";
+                        break;
+                    case "LEYTE":
+                        code = "0837";
+                        break;
+                    case "NORTHERN SAMAR":
+                        code = "0848";
+                        break;
+                    case "SAMAR (WESTERN SAMAR)":
+                        code = "0860";
+                        break;
+                    case "SOUTHERN LEYTE":
+                        code = "0864";
+                        break;
+                    case "BILIRAN":
+                        code = "0878";
+                        break;
+                    case "ZAMBOANGA DEL NORTE":
+                        code = "0972";
+                        break;
+                    case "ZAMBOANGA DEL SUR":
+                        code = "0973";
+                        break;
+                    case "ZAMBOANGA SIBUGAY":
+                        code = "0983";
+                        break;
+                    case "CITY OF ISABELA":
+                        code = "0997";
+                        break;
+                    case "BUKIDNON":
+                        code = "1013";
+                        break;
+                    case "CAMIGUIN":
+                        code = "1018";
+                        break;
+                    case "LANAO DEL NORTE":
+                        code = "1035";
+                        break;
+                    case "MISAMIS OCCIDENTAL":
+                        code = "1042";
+                        break;
+                    case "MISAMIS ORIENTAL":
+                        code = "1043";
+                        break;
+                    case "DAVAO DEL NORTE":
+                        code = "1123";
+                        break;
+                    case "DAVAO DEL SUR":
+                        code = "1124";
+                        break;
+                    case "DAVAO ORIENTAL":
+                        code = "1125";
+                        break;
+                    case "COMPOSTELA VALLEY":
+                        code = "1182";
+                        break;
+                    case "DAVAO OCCIDENTAL":
+                        code = "1186";
+                        break;
+                    case "COTABATO (NORTH COTABATO)":
+                        code = "1247";
+                        break;
+                    case "SOUTH COTABATO":
+                        code = "1263";
+                        break;
+                    case "SULTAN KUDARAT":
+                        code = "1265";
+                        break;
+                    case "SARANGANI":
+                        code = "1280";
+                        break;
+                    case "COTABATO CITY":
+                        code = "1298";
+                        break;
+                    case "NCR, CITY OF MANILA, FIRST DISTRICT":
+                    case "CITY OF MANILA":
+                        code = "1339";
+                        break;
+                    case "NCR, SECOND DISTRICT":
+                        code = "1374";
+                        break;
+                    case "NCR, THIRD DISTRICT":
+                        code = "1375";
+                        break;
+                    case "NCR, FOURTH DISTRICT":
+                        code = "1376";
+                        break;
+                    case "ABRA":
+                        code = "1401";
+                        break;
+                    case "BENGUET":
+                        code = "1411";
+                        break;
+                    case "IFUGAO":
+                        code = "1427";
+                        break;
+                    case "KALINGA":
+                        code = "1432";
+                        break;
+                    case "MOUNTAIN PROVINCE":
+                        code = "1444";
+                        break;
+                    case "APAYAO":
+                        code = "1481";
+                        break;
+                    case "BASILAN":
+                        code = "1507";
+                        break;
+                    case "LANAO DEL SUR":
+                        code = "1536";
+                        break;
+                    case "MAGUINDANAO":
+                        code = "1538";
+                        break;
+                    case "SULU":
+                        code = "1566";
+                        break;
+                    case "TAWI-TAWI":
+                        code = "1570";
+                        break;
+                    case "AGUSAN DEL NORTE":
+                        code = "1602";
+                        break;
+                    case "AGUSAN DEL SUR":
+                        code = "1603";
+                        break;
+                    case "SURIGAO DEL NORTE":
+                        code = "1667";
+                        break;
+                    case "SURIGAO DEL SUR":
+                        code = "1668";
+                        break;
+                    case "DINAGAT ISLANDS":
+                        code = "1685";
+                        break;
+                    //continue here
+
+                    default:
+                    // code block
+                }
+                // if (dropdown.val() == "RIZAL") {
+                $.get('/json/refcitymun.json', function (data) {
+                    let citiesInRizal = [];
+
+                    $.each(data.RECORDS, function (index, cities) {
+                        if (cities.provCode == code) {
+
+                            citiesInRizal.push(city.citymunDesc);
+                            console.log(citiesInRizal);
+                            city.append($('<option />').val(cities.citymunDesc).text(cities.citymunDesc));
+                        }
+                    });
+
+
+                })
+
+            })
+        })
+
     }
 
 })
