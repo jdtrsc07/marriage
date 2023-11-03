@@ -1,0 +1,68 @@
+/* profile */
+
+#form-container {
+    /* background: url(https://images.unsplash.com/photo-1544306094-e2dcf9479da3) no-repeat; */
+    /* Keep the inherited background full size. */
+    background: url(https://images.pexels.com/photos/204993/pexels-photo-204993.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1) no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    /* height: 100vh; */
+}
+
+#inner-div {
+    /* width: 30rem;
+    height: 20rem; */
+    box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .2);
+    border-radius: 5px;
+    position: relative;
+    z-index: 1;
+    background: inherit;
+    /* border: 1px solid rgba(255, 255, 255, 1); */
+    /* overflow: hidden; */
+}
+
+#inner-div:before {
+    content: "";
+    position: absolute;
+    background: inherit;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* box-shadow: inset 0 0 2000px rgba(255, 255, 255, .2); */
+    /* filter: blur(13px); */
+    margin: -20px;
+    background: rgba(255, 255, 255, 0.21);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, .4) !important;
+}
+
+small,
+.details {
+    font-size: 100%;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+
+}
+
+#sub-inner {
+    border: 1px solid white;
+}
+
+#mid {
+    border-right: 1px solid white;
+    border-left: 1px solid white;
+}
+
+#groom_modify,
+#bride_modify {
+    font-style: none;
+    color: blue;
+}
